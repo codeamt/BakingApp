@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:layout_margin="@dimen/beforeWidgetMargin8"
+    android:textAlignment="viewStart"
+    android:layout_gravity="start">
+
+    <ImageView
+        android:id="@+id/widget_before_img"
+        android:layout_width="@dimen/spacing50dp"
+        android:layout_height="@dimen/spacing50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/spacing10dp"
+        android:layout_marginBottom="@dimen/spacing50dp"
+        android:src="@drawable/sweets"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/widget_before_img"
+        android:contentDescription="@string/appwidget_text"
+        android:text="@string/appwidget_text"
+        android:textColor="@color/colorBlack"
+        android:layout_margin="@dimen/beforeWidgetMargin4"
+        android:textSize="@dimen/beforeWidgetTextSize"
+        android:fillViewport="false"
+        android:textStyle="bold"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentBottom="false"
+        android:layout_centerInParent="false"
+        android:layout_centerHorizontal="false"
+        android:layout_centerVertical="false"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"/>
+
+</RelativeLayout>

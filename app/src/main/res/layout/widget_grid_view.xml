@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <ImageView
+        android:id="@+id/widget_img"
+        android:layout_width="@dimen/spacing50dp"
+        android:layout_height="@dimen/spacing50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/spacing10dp"
+        android:layout_marginBottom="@dimen/spacing10dp"
+        android:src="@drawable/sweets"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:id="@+id/widget_intro"
+        android:layout_below="@+id/widget_img"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+        android:textColor="@color/colorBlack"
+        android:text="@string/widgetSubTitle" />
+    <GridView
+        android:id="@+id/widget_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="1"
+        android:columnWidth="@dimen/spacing25dp"
+        android:layout_margin="@dimen/spacing2dp"
+        android:horizontalSpacing="@dimen/spacing5dp"
+        android:verticalSpacing="@dimen/spacing5dp"
+        android:layout_below="@+id/widget_intro"
+        android:padding="@dimen/spacing10dp"
+        android:background="@drawable/widget_background_active"
+        />
+
+</RelativeLayout>

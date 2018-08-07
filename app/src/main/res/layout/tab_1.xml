@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@android:color/black">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarStyle="insideInset"
+        style="@android:style/Widget.Holo.ScrollView"
+        android:clipToPadding="false"
+        android:scrollIndicators="top|bottom"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:isScrollContainer="false"
+        android:fillViewport="false">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/tabTextSize"
+            android:textColor="@color/tabTextColor"
+            android:id="@+id/recipe_detail_text"
+            android:padding="@dimen/spacing15dp" />
+    </ScrollView>
+
+</RelativeLayout>

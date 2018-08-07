@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/spacing16dp">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recipe_recycler"
+        android:layout_width="@dimen/spacing300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+</FrameLayout>

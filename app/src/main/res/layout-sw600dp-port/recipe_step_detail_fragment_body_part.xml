@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:tag="sw600dp-port-recipe_step_detail"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing16dp">
+
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlack"
+        card_view:cardCornerRadius="@dimen/spacing4dp"
+        card_view:cardBackgroundColor="@color/colorBlack"
+        android:padding="@dimen/spacing15dp"
+        android:layout_margin="@dimen/spacing5dp">
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/playerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing0dp"
+        android:layout_marginRight="@dimen/spacing0dp"
+        android:layout_marginBottom="@dimen/spacing10dp"
+        android:layout_marginLeft="@dimen/spacing0dp"
+        android:layout_margin="@dimen/spacing10dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/thumbImage"
+                android:layout_gravity="start"
+                android:paddingRight="@dimen/spacing15dp"
+                android:elevation="@dimen/elevation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlack"
+        android:layout_marginBottom="@dimen/spacing30dp"
+        card_view:cardCornerRadius="@dimen/spacing4dp"
+        card_view:cardBackgroundColor="@color/colorBlack"
+        android:padding="@dimen/spacing15dp"
+        android:layout_margin="@dimen/spacing5dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="@android:color/white"
+                android:id="@+id/recipe_step_detail_text"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="@dimen/spacing50dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/prevText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:paddingLeft="@dimen/spacing20dp"
+                android:layout_marginBottom="@dimen/spacing5dp"
+                android:layout_margin="@dimen/spacing10dp"
+                android:text="@string/stepPrev" />
+
+
+            <Button
+                android:id="@+id/previousStep"
+                android:padding="@dimen/spacing40dp"
+                android:elevation="@dimen/elevation6"
+                android:layout_width="@dimen/spacing70dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing10dp"
+                android:backgroundTintMode="src_over"
+                android:background="@drawable/ic_navigate_before_black_18dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:id="@+id/nextText"
+                android:paddingLeft="@dimen/spacing20dp"
+                android:layout_marginBottom="@dimen/spacing5dp"
+                android:layout_margin="@dimen/spacing10dp"
+                android:text="@string/stepNext"/>
+                <Button
+                    android:id="@+id/nextStep"
+                    android:padding="@dimen/spacing40dp"
+                    android:layout_margin="@dimen/spacing10dp"
+                    android:layout_width="@dimen/spacing70dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTintMode="src_over"
+                    android:background="@drawable/ic_navigate_next_black_18dp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

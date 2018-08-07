@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBlack"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardBackgroundColor="@color/colorBlack"
+            android:padding="15dp"
+            android:layout_margin="5dp">
+            <android.support.design.widget.TabLayout
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing100dp"
+                android:paddingBottom="@dimen/spacing25dp"
+                android:textSize="@dimen/recipeDetailText"
+                android:background="@android:color/black"
+                android:elevation="@dimen/elevation6"
+                android:minHeight="?attr/actionBarSize"
+                app:tabIndicatorColor="@android:color/white"
+                app:tabIndicatorHeight="@dimen/spacing5dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:background="@android:color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/spacing100dp"
+                android:layout_below="@+id/tab_layout"/>
+            </android.support.v7.widget.CardView>
+    </RelativeLayout>
+</LinearLayout>
