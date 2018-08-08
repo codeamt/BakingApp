@@ -51,7 +51,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RecipeDetailStepFragment extends Fragment {
-    //private SimpleExoPlayerView simpleExoPlayerView;
+
     private SimpleExoPlayer player;
     private BandwidthMeter bandwidthMeter;
     private ArrayList<Step> steps = new ArrayList<>();
@@ -59,6 +59,8 @@ public class RecipeDetailStepFragment extends Fragment {
     private Handler handler;
     ArrayList<Recipe> recipe;
     String recipeName;
+    public static long currentPosition = 0;
+    Boolean playWhenReady = true;
 
 
     @BindView(R.id.recipe_step_detail_text) TextView textView;
@@ -79,6 +81,9 @@ public class RecipeDetailStepFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.recipe_step_detail_fragment_body_part, container, false);
+        ButterKnife.bind(this, rootView);
+
         handler = new Handler(Looper.getMainLooper());
         bandwidthMeter = new DefaultBandwidthMeter();
 
@@ -91,6 +96,12 @@ public class RecipeDetailStepFragment extends Fragment {
             steps = savedInstanceState.getParcelableArrayList(SELECTED_STEPS);
             selectedIndex = savedInstanceState.getInt(SELECTED_INDEX);
             recipeName = savedInstanceState.getString("Title");
+
+            if(player != null && steps != null && selectedIndex != 0 && playWhenReady) {
+                initializePlayer(Uri.parse(steps.get(selectedIndex).getVideoURL()));
+                long position = savedInstanceState.getLong("Player_Position");
+                player.seekTo(position);
+            }
         }
         else {
 
@@ -108,81 +119,85 @@ public class RecipeDetailStepFragment extends Fragment {
             }
         }
 
-        View rootView = inflater.inflate(R.layout.recipe_step_detail_fragment_body_part, container, false);
-        ButterKnife.bind(this, rootView);
+
         textView.setVisibility(View.VISIBLE);
-        textView.setText(steps.get(selectedIndex).getDescription());
-        simpleExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
+        if(steps != null) {
+            textView.setText(steps.get(selectedIndex).getDescription());
 
-        String videoURL = steps.get(selectedIndex).getVideoURL();
-        if (rootView.findViewWithTag("sw600dp-port-recipe_step_detail") != null && getActivity() != null) {
-            recipeName = ((RecipeDetailActivity) getActivity()).recipeName;
-            if(((RecipeDetailActivity) getActivity()).getSupportActionBar() != null) {
-                ((RecipeDetailActivity) getActivity()).getSupportActionBar().setTitle(recipeName);
-            }
-        }
+            simpleExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
 
-        String imageUrl = steps.get(selectedIndex).getThumbnailURL();
-        if(!imageUrl.isEmpty()) {
-            Uri uri = Uri.parse(imageUrl).buildUpon().build();
-            Picasso.with(getContext()).load(uri).into(thumbImage);
-        }
-
-        if(!videoURL.isEmpty()) {
-            initializePlayer(Uri.parse(steps.get(selectedIndex).getVideoURL()));
-
-            if(rootView.findViewWithTag("sw600dp-land-recipe_step_detail") != null && getActivity() != null) {
-                getActivity().findViewById(R.id.fragment_container2).setLayoutParams(new LinearLayout.LayoutParams(-1, -2));
-                simpleExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH);
-            }
-            else if (isInLandscapeMode(getContext())) {
-                textView.setVisibility(View.GONE);
-            }
-        }
-
-        else {
-
-            player = null;
-            if (getContext() != null) {
-                simpleExoPlayerView.setForeground(ContextCompat.getDrawable(getContext(), R.drawable.no_media_words));
-                if(!isInLandscapeMode(getContext()) ) {
-                    simpleExoPlayerView.setLayoutParams(new FrameLayout.LayoutParams(900, 500));
-                } else {
-                    simpleExoPlayerView.setLayoutParams(new LinearLayout.LayoutParams(1200, 600));
+            String videoURL = steps.get(selectedIndex).getVideoURL();
+            if (rootView.findViewWithTag("sw600dp-port-recipe_step_detail") != null && getActivity() != null) {
+                recipeName = ((RecipeDetailActivity) getActivity()).recipeName;
+                if (((RecipeDetailActivity) getActivity()).getSupportActionBar() != null) {
+                    ((RecipeDetailActivity) getActivity()).getSupportActionBar().setTitle(recipeName);
                 }
             }
-        }
 
+            String imageUrl = steps.get(selectedIndex).getThumbnailURL();
+            if (!imageUrl.isEmpty()) {
+                Uri uri = Uri.parse(imageUrl).buildUpon().build();
+                Picasso.with(getContext()).load(uri).into(thumbImage);
+            }
 
-        mPrev.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                if (steps.get(selectedIndex).getId() > 0) {
-                    if (player != null) {
-                        player.stop();
+            if (!videoURL.isEmpty()) {
+                initializePlayer(Uri.parse(steps.get(selectedIndex).getVideoURL()));
+
+                if (rootView.findViewWithTag("sw600dp-port-recipe_step_detail") != null && getActivity() != null) {
+                    getActivity().findViewById(R.id.fragment_container).setLayoutParams(new LinearLayout.LayoutParams(-1, -2));
+                    simpleExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH);
+                } else if (isInLandscapeMode(getContext())) {
+                    textView.setVisibility(View.GONE);
+                }
+            } else {
+
+                player = null;
+                if (getContext() != null) {
+                    simpleExoPlayerView.setForeground(ContextCompat.getDrawable(getContext(), R.drawable.no_media_words));
+                    if (!isInLandscapeMode(getContext())) {
+                        if(rootView.findViewWithTag("sw600dp-port-recipe_step_detail") != null || rootView.findViewWithTag("sw600dp-land-recipe_step_detail") != null) {
+                            simpleExoPlayerView.setLayoutParams(new FrameLayout.LayoutParams(1400, 700));
+                        } else {
+                            simpleExoPlayerView.setLayoutParams(new FrameLayout.LayoutParams(900, 500));
+                        }
                     }
-                    itemClickListener.onListItemClick(steps, steps.get(selectedIndex).getId() - 1, recipeName);
-                } else {
-                    Toast.makeText(getActivity(), "You alreay are in the First step of the recipe", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        mNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int lastIndex = steps.size() - 1;
-                if (steps.get(selectedIndex).getId() < steps.get(lastIndex).getId()) {
-                    if (player != null) {
-                        player.stop();
+                    else {
+                        simpleExoPlayerView.setLayoutParams(new LinearLayout.LayoutParams(1200, 600));
                     }
-                    itemClickListener.onListItemClick(steps, steps.get(selectedIndex).getId() + 1, recipeName);
-                } else {
-                    Toast.makeText(getContext(), "You already are in the Last step of the recipe", Toast.LENGTH_SHORT).show();
-
                 }
             }
-        });
 
+
+            mPrev.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    if (steps.get(selectedIndex).getId() > 0) {
+                        if (player != null) {
+                            player.stop();
+                        }
+                        itemClickListener.onListItemClick(steps, steps.get(selectedIndex).getId() - 1, recipeName);
+                    } else {
+                        Toast.makeText(getActivity(), "You alreay are in the First step of the recipe", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            mNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int lastIndex = steps.size() - 1;
+                    if (steps.get(selectedIndex).getId() < steps.get(lastIndex).getId()) {
+                        if (player != null) {
+                            player.stop();
+                        }
+                        itemClickListener.onListItemClick(steps, steps.get(selectedIndex).getId() + 1, recipeName);
+                    } else {
+                        Toast.makeText(getContext(), "You already are in the Last step of the recipe", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            });
+
+        }
         return rootView;
     }
 
@@ -193,6 +208,10 @@ public class RecipeDetailStepFragment extends Fragment {
         currentState.putParcelableArrayList(SELECTED_STEPS, steps);
         currentState.putInt(SELECTED_INDEX, selectedIndex);
         currentState.putString("Title", recipeName);
+        if(player != null) {
+            currentPosition = player.getCurrentPosition();
+            currentState.putLong("Player_Position", currentPosition);
+        }
     }
 
 
@@ -207,14 +226,38 @@ public class RecipeDetailStepFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        if(player != null && steps != null && selectedIndex != 0) {
+            initializePlayer(Uri.parse(steps.get(selectedIndex).getVideoURL()));
+        }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(player != null && steps != null && selectedIndex != 0) {
+            initializePlayer(Uri.parse(steps.get(selectedIndex).getVideoURL()));
+        }
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
+        if(player != null) {
+            releasePlayer();
+        }
+
     }
 
 
     @Override
     public void onPause() {
         super.onPause();
+        if(player != null) {
+            releasePlayer();
+        }
     }
 
 
@@ -232,9 +275,23 @@ public class RecipeDetailStepFragment extends Fragment {
                 String userAgent = Util.getUserAgent(getContext(), "Baking App");
                 MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
                 player.prepare(mediaSource);
-                player.setPlayWhenReady(true);
+                if (playWhenReady != null) {
+                    player.setPlayWhenReady(playWhenReady);
+                }
+                if(currentPosition != 0) {
+                    player.seekTo(currentPosition);
+                }
             }
 
+        }
+    }
+
+    private void releasePlayer() {
+        if (player != null) {
+            currentPosition = player.getCurrentPosition();
+            playWhenReady = player.getPlayWhenReady();
+            player.release();
+            player = null;
         }
     }
 

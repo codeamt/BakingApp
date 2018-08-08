@@ -7,8 +7,10 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recipe_recycler"
-        android:layout_width="@dimen/spacing300dp"
+        android:layout_marginLeft="@dimen/spacing70dp"
+        android:layout_marginStart="@dimen/spacing70dp"
+        android:padding="@dimen/spacing10dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
-
+         />
 </FrameLayout>

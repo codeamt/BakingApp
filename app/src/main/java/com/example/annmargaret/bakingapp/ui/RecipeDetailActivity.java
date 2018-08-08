@@ -105,16 +105,16 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
         stepBundle.putString("Title", recipeName);
         stepFragment.setArguments(stepBundle);
 
-        if(findViewById(R.id.recipe_linear_layout).getTag() != null && findViewById(R.id.recipe_linear_layout).getTag().equals("tablet-land")) {
+        /*if(findViewById(R.id.recipe_linear_layout).getTag() != null && findViewById(R.id.recipe_linear_layout).getTag().equals("tablet-land")) {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragment_container2, stepFragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
                     .commit();
         }
-        else {
+        else {*/
             fragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, stepFragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
                     .commit();
-        }
+      //  }
     }
 
     @Override

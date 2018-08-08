@@ -3,16 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fitsSystemWindows="true"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="16dp">
 
     <android.support.design.widget.TabLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:paddingBottom="20dp"
-        android:textSize="24sp"
+        android:textSize="26sp"
         android:background="@android:color/black"
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize"
@@ -23,7 +23,8 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:background="@android:color/black"
+        android:padding="@dimen/spacing10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tab_layout"/>
+        />
 </LinearLayout>

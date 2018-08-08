@@ -21,21 +21,23 @@
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:id="@+id/playerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="@dimen/spacing0dp"
         android:layout_marginRight="@dimen/spacing0dp"
         android:layout_marginBottom="@dimen/spacing10dp"
         android:layout_marginLeft="@dimen/spacing0dp"
         android:layout_margin="@dimen/spacing10dp" />
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="@dimen/spacing300dp">
             <ImageView
                 android:id="@+id/thumbImage"
-                android:layout_gravity="start"
-                android:paddingRight="@dimen/spacing15dp"
+                android:layout_gravity="center"
+                android:paddingRight="@dimen/spacing300dp"
                 android:elevation="@dimen/elevation"
-                android:layout_width="wrap_content"
+                android:layout_width="650dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
@@ -54,10 +56,15 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:textColor="@android:color/white"
+                android:layout_gravity="center"
+                android:textSize="@dimen/recipeStepTextBig"
+                android:padding="@dimen/spacing50dp"
+                android:layout_marginLeft="@dimen/spacing10dp"
                 android:id="@+id/recipe_step_detail_text"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -67,7 +74,7 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_height="@dimen/spacing50dp">
+        android:layout_height="@dimen/spacing150dp">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,6 +85,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorBlack"
                 android:paddingLeft="@dimen/spacing20dp"
+                android:textSize="22sp"
                 android:layout_marginBottom="@dimen/spacing5dp"
                 android:layout_margin="@dimen/spacing10dp"
                 android:text="@string/stepPrev" />
@@ -96,7 +104,7 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="105dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
@@ -105,13 +113,17 @@
                 android:textColor="@color/colorBlack"
                 android:id="@+id/nextText"
                 android:paddingLeft="@dimen/spacing20dp"
+                android:textSize="22sp"
                 android:layout_marginBottom="@dimen/spacing5dp"
+                android:layout_marginLeft="@dimen/spacing5dp"
                 android:layout_margin="@dimen/spacing10dp"
                 android:text="@string/stepNext"/>
                 <Button
                     android:id="@+id/nextStep"
+                    android:layout_gravity="right"
                     android:padding="@dimen/spacing40dp"
                     android:layout_margin="@dimen/spacing10dp"
+                    android:layout_marginLeft="@dimen/spacing15dp"
                     android:layout_width="@dimen/spacing70dp"
                     android:layout_height="wrap_content"
                     android:backgroundTintMode="src_over"

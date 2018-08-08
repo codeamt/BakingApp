@@ -2,14 +2,16 @@
 <android.support.v7.widget.CardView
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="200dp"
-    android:layout_height="@dimen/spacing150dp"
+    android:layout_height="wrap_content"
     card_view:cardCornerRadius="@dimen/spacing4dp"
-    card_view:cardBackgroundColor="@color/colorPink"
     android:layout_margin="@dimen/spacing5dp"
-    android:layout_alignParentTop="false"
+    card_view:cardBackgroundColor="@color/colorPink"
+    card_view:cardPreventCornerOverlap="false"
+    android:layout_alignParentRight="false"
+    android:layout_centerInParent="false"
     android:layout_centerHorizontal="false"
-    android:layout_gravity="center_horizontal">
+    android:layout_centerVertical="false"
+    android:layout_width="400dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,26 +21,29 @@
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/spacing50dp"
-            android:gravity="center_vertical"
+            android:layout_height="@dimen/spacing100dp"
+            android:textSize="26sp"
+            android:foregroundGravity="center_vertical|center_horizontal|center"
+            android:gravity="center_vertical|center_horizontal"
             android:layout_centerInParent="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:layout_centerHorizontal="false"
             android:textAlignment="center"
             android:layout_centerVertical="false" />
 
         <ImageView
             android:id="@+id/recipeImage"
-            android:layout_gravity="start"
+            android:layout_gravity="center"
             android:paddingRight="@dimen/spacing15dp"
             android:paddingEnd="@dimen/spacing15dp"
             android:paddingStart="@dimen/spacing15dp"
             android:paddingLeft="@dimen/spacing15dp"
             android:elevation="@dimen/elevation"
-            android:layout_marginTop="@dimen/spacing40dp"
-            android:layout_marginBottom="@dimen/spacing40dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_marginLeft="@dimen/spacing100dp"
+            android:layout_marginTop="@dimen/spacing100dp"
+            android:layout_marginBottom="@dimen/spacing50dp"
+            android:layout_width="@dimen/spacing200dp"
+            android:layout_height="@dimen/spacing200dp" />
     </RelativeLayout>
 
 

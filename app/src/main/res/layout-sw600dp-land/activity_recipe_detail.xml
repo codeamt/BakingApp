@@ -20,12 +20,11 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="1">
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/fragment_container"
-            android:layout_width="@dimen/spacing250dp"
+            android:layout_width="match_parent"
             android:scaleType="centerInside"
             android:layout_height="match_parent" >
 
@@ -33,11 +32,9 @@
 
         <FrameLayout
             android:id="@+id/fragment_container2"
-            android:scaleType="centerInside"
-            android:layout_margin="@dimen/spacing25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/spacing25dp" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            />
 
     </LinearLayout>
 

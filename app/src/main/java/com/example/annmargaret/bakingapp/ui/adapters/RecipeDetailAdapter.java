@@ -69,7 +69,6 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
         TextView textVH;
         private RecipeDetailViewHolder(View item) {
             super(item);
-            ButterKnife.bind(item);
             textVH = (TextView) item.findViewById(R.id.shortDescription);
             item.setOnClickListener(this);
         }
