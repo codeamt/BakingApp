@@ -19,10 +19,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.RecipeDetailActivity"
-            android:configChanges="orientation"
-            >
-        </activity>
+        <activity android:name=".ui.RecipeDetailActivity"/>
 
         <service android:name=".widget.UpdateBakingService" />
 

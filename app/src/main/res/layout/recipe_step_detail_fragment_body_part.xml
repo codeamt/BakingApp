@@ -56,7 +56,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/recipeCardTextLand"
+                android:textSize="12sp"
                 android:layout_marginTop="@dimen/spacing20dp"
                 android:padding="@dimen/spacing20dp"
                 android:id="@+id/recipe_step_detail_text"
@@ -90,7 +90,7 @@
                 android:elevation="@dimen/elevation6"
                 android:layout_width="@dimen/spacing70dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/spacing10dp"
+                android:layout_margin="@dimen/spacing5dp"
                 android:backgroundTintMode="src_over"
                 android:background="@drawable/ic_navigate_before_black_18dp" />
         </LinearLayout>
@@ -112,7 +112,7 @@
             <Button
                 android:id="@+id/nextStep"
                 android:padding="@dimen/spacing40dp"
-                android:layout_margin="@dimen/spacing10dp"
+                android:layout_margin="@dimen/spacing5dp"
                 android:layout_width="@dimen/spacing70dp"
                 android:layout_height="wrap_content"
                 android:backgroundTintMode="src_over"

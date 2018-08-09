@@ -118,7 +118,7 @@ public class RecipeDetailFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle currentState) {
         super.onSaveInstanceState(currentState);
         currentState.putParcelableArrayList(SELECTED_RECIPES, recipe);
-        if(isInLandscapeMode(getContext())) {
+        if(isInLandscapeMode(getContext()) && layoutManager != null) {
             mStepState = layoutManager.onSaveInstanceState();
             currentState.putParcelable("Recycler_State", mStepState);
         }
