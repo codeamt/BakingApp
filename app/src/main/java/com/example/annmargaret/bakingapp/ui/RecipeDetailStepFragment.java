@@ -62,7 +62,6 @@ public class RecipeDetailStepFragment extends Fragment {
     ArrayList<Recipe> recipe;
     String recipeName;
     public long currentPosition = C.TIME_UNSET;
-    Boolean playWhenReady = true;
     String videoURL;
     Uri videoURI;
 
@@ -155,10 +154,18 @@ public class RecipeDetailStepFragment extends Fragment {
                 if (getContext() != null) {
                     simpleExoPlayerView.setForeground(ContextCompat.getDrawable(getContext(), R.drawable.no_media_words));
                     if (!isInLandscapeMode(getContext())) {
-                        if(rootView.findViewWithTag("sw600dp-port-recipe_step_detail") != null || rootView.findViewWithTag("sw600dp-land-recipe_step_detail") != null) {
+                        if(rootView.findViewWithTag("sw600dp-port-recipe_step_detail") != null) {
                             simpleExoPlayerView.setLayoutParams(new FrameLayout.LayoutParams(1400, 700));
-                        } else {
-                            simpleExoPlayerView.setLayoutParams(new FrameLayout.LayoutParams(900, 500));
+                        }
+                        if (rootView.findViewWithTag("sw600dp-land-recipe_step_detail") != null) {
+                            simpleExoPlayerView.setLayoutParams(new LinearLayout.LayoutParams(1400, 1400));
+                        }
+
+                        if(rootView.findViewWithTag("land-recipe_step_detail") != null) {
+                            simpleExoPlayerView.setLayoutParams(new LinearLayout.LayoutParams(600, 600));
+                        }
+                    } else {
+                            simpleExoPlayerView.setLayoutParams(new LinearLayout.LayoutParams(900, 500));
                         }
                     }
                     else {
@@ -197,7 +204,7 @@ public class RecipeDetailStepFragment extends Fragment {
                 }
             });
 
-        }
+
         return rootView;
     }
 
@@ -237,22 +244,26 @@ public class RecipeDetailStepFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        hardReleasePlayer();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+        softReleasePlayer();
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        softReleasePlayer();
     }
 
 
     @Override
     public void onPause() {
         super.onPause();
+        softReleasePlayer();
     }
 
 
@@ -268,21 +279,31 @@ public class RecipeDetailStepFragment extends Fragment {
                 player = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector, loadControl);
                 simpleExoPlayerView.setPlayer(player);
                 String userAgent = Util.getUserAgent(getContext(), "Baking App");
-                MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
-                if (currentPosition != C.TIME_UNSET) player.seekTo(currentPosition);
-                player.prepare(mediaSource);
-                player.setPlayWhenReady(true);
+                if(mediaUri != null) {
+                    MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
+                    if (currentPosition != C.TIME_UNSET) player.seekTo(currentPosition);
+                    player.prepare(mediaSource);
+                    player.setPlayWhenReady(true);
+                }
             }
 
         }
     }
 
-    private void releasePlayer() {
+    private void hardReleasePlayer() {
         if (player != null) {
             currentPosition = player.getCurrentPosition();
             player.stop();
             player.release();
             player = null;
+        }
+    }
+
+    private void softReleasePlayer(){
+        if (player != null) {
+            currentPosition = player.getCurrentPosition();
+            player.stop();
+            player.release();
         }
     }
 

@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,8 +29,6 @@ import static com.example.annmargaret.bakingapp.ui.RecipeActivity.SELECTED_RECIP
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class RecipeDetailFragment extends Fragment {
 
@@ -42,6 +41,7 @@ public class RecipeDetailFragment extends Fragment {
     LinearLayoutManager layoutManager;
     ArrayList<String> recipeIngredientsForBinding;
     Parcelable mStepState;
+    static String STACK_RECIPE_STEP_DETAIL="STACK_RECIPE_STEP_DETAIL";
 
 
 
@@ -83,25 +83,31 @@ public class RecipeDetailFragment extends Fragment {
                 if (rootView.findViewById(R.id.tab_layout) != null) {
                     inflateTabs(rootView);
                 } else {
-                    textView = (TextView) rootView.findViewById(R.id.recipe_detail_text);
-                    recipeIngredientsForBinding = new ArrayList<>();
-                    recyclerView = (RecyclerView) rootView.findViewById(R.id.recipe_detail_recycler);
-                    layoutManager = new LinearLayoutManager(getContext());
 
-                    for (Ingredient i : ingredients) {
-                        textView.append("\u2022 " + i.getIngredient() + "\n");
-                        textView.append("\t\t\t Quantity: " + i.getQuantity().toString() + "\n");
-                        textView.append("\t\t\t Measure: " + i.getMeasure() + "\n\n");
+                    FragmentManager fragmentManager = getFragmentManager();
+                    bindViews(rootView, ingredients);
 
-                        recipeIngredientsForBinding.add(i.getIngredient() + "\n" +
-                                "Quantity: " + i.getQuantity().toString() + "\n" +
-                                "Measure: " + i.getMeasure() + "\n");
+                    if(getActivity() != null && getActivity().findViewById(R.id.recipe_linear_layout).getTag()!=null && getActivity().findViewById(R.id.recipe_linear_layout).getTag().equals("tablet-land")) {
+                        final RecipeDetailStepFragment stepFragment = new RecipeDetailStepFragment();
+                        stepFragment.setArguments(getArguments());
+                        if(fragmentManager != null) {
+                            fragmentManager.beginTransaction()
+                                    .replace(R.id.fragment_container2, stepFragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
+                                    .commit();
+                        }
                     }
 
-                    recyclerView.setLayoutManager(layoutManager);
-                    recipeDetailAdapter = new RecipeDetailAdapter((RecipeDetailActivity) getActivity());
-                    recyclerView.setAdapter(recipeDetailAdapter);
-                    recipeDetailAdapter.setRecipeData(recipe, getContext());
+
+                    if(getActivity() != null && getActivity().findViewById(R.id.recipe_linear_layout).getTag()!=null && getActivity().findViewById(R.id.recipe_linear_layout).getTag().equals("mobile-land")) {
+                        final RecipeDetailStepFragment stepFragment = new RecipeDetailStepFragment();
+                        stepFragment.setArguments(getArguments());
+                        if(fragmentManager != null) {
+                            fragmentManager.beginTransaction()
+                                    .replace(R.id.fragment_container2, stepFragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
+                                    .commit();
+                        }
+                    }
+
                     //for home widget
                     if(recipeIngredientsForBinding != null && getActivity() != null) {
                         UpdateBakingService.startBakingService(getActivity().getApplicationContext(), recipeIngredientsForBinding);
@@ -157,10 +163,6 @@ public class RecipeDetailFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
 
         for (Ingredient i : ingredientList) {
-            textView.append("\u2022 " + i.getIngredient() + "\n");
-            textView.append("\t\t\t Quantity: " + i.getQuantity().toString() + "\n");
-            textView.append("\t\t\t Measure: " + i.getMeasure() + "\n\n");
-
             recipeIngredientsForBinding.add(i.getIngredient() + "\n" +
                     "Quantity: " + i.getQuantity().toString() + "\n" +
                     "Measure: " + i.getMeasure() + "\n");

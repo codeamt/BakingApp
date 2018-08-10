@@ -1,10 +1,12 @@
 package com.example.annmargaret.bakingapp.ui;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.FrameLayout;
 
 
 import com.example.annmargaret.bakingapp.R;
@@ -19,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
+
 public class RecipeDetailActivity extends AppCompatActivity implements RecipeDetailAdapter.ListItemClickListener, RecipeDetailStepFragment.ListItemClickListener {
 
     static String SELECTED_RECIPES="Selected_Recipes";
@@ -31,6 +34,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
     String recipeName;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
+    @Nullable
+    @BindView(R.id.fragment_container2)
+    FrameLayout tabletView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +45,11 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
 
         if(savedInstanceState == null) {
             Bundle targetRecipeBundle = getIntent().getExtras();
-
             recipe = new ArrayList<>();
             if(targetRecipeBundle != null) {
                 recipe = targetRecipeBundle.getParcelableArrayList(SELECTED_RECIPES);
             }
+
             if(recipe != null) {
                 recipeName = recipe.get(0).getName();
             }
@@ -55,14 +61,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
             fragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, fragment).addToBackStack(STACK_RECIPE_DETAIL)
                     .commit();
-
-            if(findViewById(R.id.recipe_linear_layout).getTag()!=null && findViewById(R.id.recipe_linear_layout).getTag().equals("tablet-land")) {
-                final RecipeDetailStepFragment stepFragment = new RecipeDetailStepFragment();
-                stepFragment.setArguments(targetRecipeBundle);
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container2, stepFragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
-                        .commit();
-            }
         } else {
             recipe = getIntent().getParcelableArrayListExtra(SELECTED_RECIPES);
             recipeName = savedInstanceState.getString("Title");
@@ -105,16 +103,23 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
         stepBundle.putString("Title", recipeName);
         stepFragment.setArguments(stepBundle);
 
-        /*if(findViewById(R.id.recipe_linear_layout).getTag() != null && findViewById(R.id.recipe_linear_layout).getTag().equals("tablet-land")) {
+
+        if(findViewById(R.id.recipe_linear_layout).getTag() != null && findViewById(R.id.recipe_linear_layout).getTag().equals("tablet-land")) {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragment_container2, stepFragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
                     .commit();
         }
-        else {*/
+
+        else if(findViewById(R.id.recipe_linear_layout).getTag() != null && findViewById(R.id.recipe_linear_layout).getTag().equals("mobile-land")) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container2, stepFragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
+                    .commit();
+        }
+        else {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, stepFragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
                     .commit();
-      //  }
+        }
     }
 
     @Override

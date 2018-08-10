@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:tag="land-recipe_step_detail"
     android:padding="@dimen/spacing0dp"
-    android:orientation="horizontal">
+    android:orientation="vertical">
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,8 +12,6 @@
         android:layout_height="match_parent"
         card_view:cardBackgroundColor="@color/colorBlack"
         card_view:cardCornerRadius="@dimen/spacing4dp"
-        card_view:contentPaddingLeft="@dimen/spacing90dp"
-        card_view:contentPaddingRight="@dimen/spacing50dp"
         android:layout_margin="@dimen/spacing5dp">
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/spacing0dp"
                 android:layout_marginRight="@dimen/spacing0dp"
-                android:layout_marginBottom="@dimen/spacing0dp"
+                android:layout_marginBottom="@dimen/spacing10dp"
                 android:layout_marginLeft="@dimen/spacing0dp"
                 android:layout_margin="@dimen/spacing0dp" />
             <ImageView
