@@ -46,7 +46,7 @@ Probably the most exciting learning experience of this project was developing a 
 </p>
 
 <p align="center">
-<img src="https://ucarecdn.com/4647cfae-66a4-43d1-9817-b8fbdf0a8e20/" width="60%" height="40%" />
+<img src="https://ucarecdn.com/0408f7a9-8c7c-4c8a-ba20-f21e7d5d7e95/" width="70%" height="50%" />
 </p>
 
 Students were asked to implement the Master-Detail Design pattern to ensure that apps offer an optimal experience across device types. 
